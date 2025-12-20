@@ -30,6 +30,7 @@ This is working material, not marketing collateral.
 - A promise that every service will fit every environment
 
 If you deploy these files unchanged and expect magic, you will be disappointed.
+
 If you read them, understand them, and adapt them, you’ll be fine.
 
 ## Security and Secrets
@@ -42,7 +43,9 @@ This repository intentionally excludes:
 - Logs
 
 You are expected to supply sensitive values locally.
+
 .env.example files exist to show structure and intent - not safe defaults.
+
 If something authenticates, encrypts, or grants access, it does not belong in Git.
 
 
@@ -69,6 +72,7 @@ Services change. Images move. Patterns improve. Compose files in this repository
 - Hard-earned lessons are learned
 
 Breaking changes can happen.
+
 Each project’s README should be treated as the authoritative reference for that stack.
 
 ## License and Use
@@ -82,5 +86,5 @@ Just don’t repackage them as a silver bullet or imply endorsement.
 
 ## Final Note
 This repository exists to reduce friction, not eliminate responsibility.
-If it helps you build something better, it’s doing its job.
 
+If it helps you build something better, it’s doing its job.
