@@ -1,0 +1,13 @@
+services:
+  dillinger:
+    image: lscr.io/linuxserver/dillinger:latest
+    container_name: dillinger
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./config:/config
+    ports:
+      - 8008:8080
+    restart: unless-stopped
