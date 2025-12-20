@@ -4,6 +4,8 @@ Mailpit is a lightweight SMTP testing service used to safely capture, inspect, a
 ## Purpose
 This stack exists to support application development and lab environments where email needs to be observed, not trusted.
 
+The web UI is intended to be accessed via a reverse proxy; SMTP is expected to remain within a trusted network boundary.
+
 Mailpit is used here as a drop-in SMTP sink:
 
 - Applications send mail normally
@@ -39,7 +41,7 @@ Current configuration:
 
 If you change ports or retention behavior, do it directly in the Compose file.
 
-
+The web UI is intended to be accessed via a reverse proxy; SMTP is expected to remain within a trusted network boundary.
 
 ## Usage
 Start the service:
