@@ -1,0 +1,63 @@
+# environment variables
+.env
+.env.*
+!.env.example
+
+# secrets
+*.secret
+*.secrets
+secrets/
+
+# certs and keys
+*.pem
+*.key
+*.crt
+*.cer
+*.pfx
+*.p12
+certs/
+ssl/
+tls/
+keys/
+
+#app data, volumes, and state
+data/
+db/
+database/
+volumes/
+storage/
+uploads/
+media/
+cache/
+redis/
+postgres/
+mysql/
+
+# backups and exports
+*.bak
+*.backup
+*.sql
+*.dump
+*.gz
+*.tar
+*.tgz
+backups/
+exports/
+
+# logs and diagnostics
+logs/
+*.log
+*.trace
+*.out
+
+# local overrides and experiments
+docker-compose.override.yml
+docker-compose.local.yml
+compose.override.yml
+
+# tooling and os noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
