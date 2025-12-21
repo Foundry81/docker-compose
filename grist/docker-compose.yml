@@ -1,0 +1,9 @@
+services:
+  grist:
+    image: gristlabs/grist:latest
+    volumes:
+      - ./data:/persist
+    ports:
+      - 8484:8484
+
+
