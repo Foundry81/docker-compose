@@ -1,0 +1,7 @@
+services:
+  quickchart:
+    image: ianw/quickchart
+    container_name: quickchart
+    ports:
+      - 8480:3400
+    restart: on-failure
