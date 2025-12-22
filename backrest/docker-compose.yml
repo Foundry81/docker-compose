@@ -1,0 +1,22 @@
+services:
+  backrest:
+    image: garethgeorge/backrest:latest
+    container_name: backrest
+    volumes:
+      - ./data:/data
+      - ./config:/config
+      - ./backrest/cache:/cache
+      - ./backrest/tmp:/tmp
+      - /storage/docker:/docker_volumes:ro # Mount local paths to backup
+      #- /path-to/backups                  # Mount local repos (optional for remote storage)
+      #- /path-to/restores:/restores       # Mount for restored content
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - BACKREST_DATA=/data
+      - BACKREST_CONFIG=/config/config.json
+      - XDG_CACHE_HOME=/cache
+      - TMPDIR=/tmp
+      - TZ=America/New_York
+    ports:
+      - "9132:9898"
+    restart: unless-stopped
