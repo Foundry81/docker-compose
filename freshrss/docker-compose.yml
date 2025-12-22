@@ -1,0 +1,17 @@
+services:
+  freshrss:
+    image: freshrss/freshrss:edge
+    container_name: freshrss
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - ./data:/var/www/FreshRSS/data
+      - ./extensions:/var/www/FreshRSS/extensions
+    ports:
+      - "8400:80"
+    environment:
+      TZ: America/New_York             # Timezone
+      CRON_MIN: '2,32'                 # Cron schedule
+      #TRUSTED_PROXY: 192.168.122.0/24 # IP or CIDR work here
