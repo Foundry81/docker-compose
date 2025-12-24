@@ -1,5 +1,5 @@
 {
-  "name": "🟢Docker Compose Readme Generator",
+  "name": "Docker Compose Readme Generator",
   "nodes": [
     {
       "parameters": {
@@ -7,17 +7,17 @@
         "formFields": {
           "values": [
             {
-              "fieldLabel": "project name"
+              "fieldLabel": "Project name"
             },
             {
               "fieldLabel": "Link to repository or project page"
             },
             {
-              "fieldLabel": "compose file",
+              "fieldLabel": "Paste compose file here:",
               "fieldType": "textarea"
             },
             {
-              "fieldLabel": "env file",
+              "fieldLabel": "Paset example .env file here:",
               "fieldType": "textarea"
             }
           ]
