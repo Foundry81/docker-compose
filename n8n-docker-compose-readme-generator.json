@@ -1,0 +1,171 @@
+{
+  "name": "🟢Docker Compose Readme Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Docker Readme File Generator",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "project name"
+            },
+            {
+              "fieldLabel": "Link to repository or project page"
+            },
+            {
+              "fieldLabel": "compose file",
+              "fieldType": "textarea"
+            },
+            {
+              "fieldLabel": "env file",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "path": "F81/docker/readme"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -592,
+        -144
+      ],
+      "id": "107922f5-fabd-4840-9f5c-c6f278574816",
+      "name": "On form submission",
+      "webhookId": "6cfa43a9-dccb-4be2-9a08-96183c6780ec"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        32
+      ],
+      "id": "eec22f9f-ed86-43f5-a545-d788bd60f5f0",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Hz5OfOMhCMRO6b3y",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Project name:\n{{ $json['project name'] }}\n\nProject repository or website:\n{{ $json['Link to repository or project page'] }}\n\nDocker Compose file:\n{{ $json['compose file'] }}\n\nDocker .env file:\n{{ $json['env file'] }}\n\nInstructions:\n- Generate a README.md using the repository’s standard web UI service template\n- Infer purpose, configuration, and limitations from the Compose file\n- Decide whether a .env file is justified and explain briefly\n- Include upstream project links if the project is well-known\n- Keep the README concise and consistent with other projects\n\nREADME.md TEMPLATE:\n\n# <Project Name>\n\n<One-sentence description>\n\n\n\n## Purpose\n\n<Why this exists in this repository>\n\n\n\n## What This Stack Includes\n\n- <bullets inferred from compose>\n\n\n\n### Configuration Overview\n\n<Inline vs .env decision + rationale>\n\n<Reverse proxy one-liner if web UI>\n\n\n\n## Usage\n\n<docker compose up -d>\n<access instructions>\n\n\n\n## Docker Socket Notes (only if applicable)\n\n<standard warning>\n\n\n\n## Operational Notes\n\n<practical, experience-based notes>\n\n\n\n### Known Limitations\n\n<honest limitations>\n\n\n\n## Upstream Project\n\n- Website: <if known or inferred>\n- GitHub: <if known or inferred>\n\n\n\n## Final Notes\n\n<short, opinionated close>\n\n",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are generating README.md files for a public GitHub repository of Docker Compose stacks.\n\nTone requirements:\n- Clear, concise, opinionated\n- No marketing language\n- No emojis\n- No hand-holding\n- Assume technical but sane readers\n\nStyle rules:\n- Use short paragraphs and bullet points\n- Avoid filler phrases\n- Do not over-explain Docker basics\n- Use consistent wording across projects\n\nSecurity rules:\n- Never invent secrets\n- Never assume production deployment\n- Prefer inline configuration unless secrets are present\n- Only recommend .env when sensitive values exist\n\nNetwork rules:\n- If a web UI is exposed, include this exact sentence:\n  \"The web UI is intended to be accessed via a reverse proxy; the service itself is expected to remain within a trusted network boundary.\"\n\nDocker socket rules:\n- If /var/run/docker.sock is mounted, include a Docker Socket Notes section with a warning about elevated access.\n\nOutput rules:\n- Output Markdown only\n- Do not include code fences around the entire document\n- Do not reference the prompt or instructions\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -384,
+        -144
+      ],
+      "id": "0dff3e05-f4eb-4389-b64a-dedda8276cef",
+      "name": "Generate Readme",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -32,
+        -144
+      ],
+      "id": "ef4d91a8-7186-452b-9c8e-559c05a8e202",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/node/data/github/docker-compose/{{$('On form submission').item.json['project name'].replace(/ /g, \"-\")}}_{{Date.now();}}-README.md",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -144
+      ],
+      "id": "df51e645-56dc-4f4f-8607-bc036e669cfa",
+      "name": "Read/Write Files from Disk"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Readme",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Generate Readme",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Readme": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2082f8bf-2235-4ac7-b17c-1d5fe2c65842",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "089593b0375f52cffd2e682594e43cdd96459883230a04bef809490471c267bb"
+  },
+  "id": "wq1UMRsgvSkqUXuw",
+  "tags": []
+}

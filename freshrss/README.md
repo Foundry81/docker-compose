@@ -30,5 +30,6 @@ None.
 - Website: <https://freshrss.org/>
 - GitHub: <https://github.com/FreshRSS/FreshRSS>
 
-## Final Notes\n\nThis stack provides a minimal, self-contained FreshRSS deployment. Adapt to your environment as necessary.
+## Final Notes
+This stack provides a minimal, self-contained FreshRSS deployment. Adapt to your environment as necessary.
 

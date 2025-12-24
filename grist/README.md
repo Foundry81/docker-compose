@@ -5,7 +5,8 @@ This stack provides a self-hosted instance of Grist via Docker Compose.
 ## What This Stack Includes
 - `gristlabs/grist` application service
 - A persistent volume for application data at `./data:/persist`
-## Configuration Overview\n\nConfiguration is handled inline within the `docker-compose.yml` file. An `.env` file is not used as there are no sensitive values or frequently customized parameters in this minimal setup.
+## Configuration Overview
+Configuration is handled inline within the `docker-compose.yml` file. An `.env` file is not used as there are no sensitive values or frequently customized parameters in this minimal setup.
 The web UI is intended to be accessed via a reverse proxy; the service itself is expected to remain within a trusted network boundary.
 ## Usage
 To start the Grist stack:
