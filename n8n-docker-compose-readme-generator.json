@@ -7,24 +7,31 @@
         "formFields": {
           "values": [
             {
-              "fieldLabel": "Project name"
+              "fieldLabel": "Project name",
+              "requiredField": true
             },
             {
-              "fieldLabel": "Link to repository or project page"
+              "fieldLabel": "Link to repository or project page",
+              "requiredField": true
             },
             {
-              "fieldLabel": "Paste compose file here:",
+              "fieldLabel": "Paste compose file here",
+              "fieldType": "textarea",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Example .env file (if necessary)",
               "fieldType": "textarea"
             },
             {
-              "fieldLabel": "Paset example .env file here:",
+              "fieldLabel": "Additional notes",
               "fieldType": "textarea"
             }
           ]
         },
         "responseMode": "lastNode",
         "options": {
-          "path": "F81/docker/readme"
+          "path": "docker/readme"
         }
       },
       "type": "n8n-nodes-base.formTrigger",
@@ -44,8 +51,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -384,
-        32
+        -304,
+        80
       ],
       "id": "eec22f9f-ed86-43f5-a545-d788bd60f5f0",
       "name": "Google Gemini Chat Model",
@@ -59,7 +66,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Project name:\n{{ $json['project name'] }}\n\nProject repository or website:\n{{ $json['Link to repository or project page'] }}\n\nDocker Compose file:\n{{ $json['compose file'] }}\n\nDocker .env file:\n{{ $json['env file'] }}\n\nInstructions:\n- Generate a README.md using the repository’s standard web UI service template\n- Infer purpose, configuration, and limitations from the Compose file\n- Decide whether a .env file is justified and explain briefly\n- Include upstream project links if the project is well-known\n- Keep the README concise and consistent with other projects\n\nREADME.md TEMPLATE:\n\n# <Project Name>\n\n<One-sentence description>\n\n\n\n## Purpose\n\n<Why this exists in this repository>\n\n\n\n## What This Stack Includes\n\n- <bullets inferred from compose>\n\n\n\n### Configuration Overview\n\n<Inline vs .env decision + rationale>\n\n<Reverse proxy one-liner if web UI>\n\n\n\n## Usage\n\n<docker compose up -d>\n<access instructions>\n\n\n\n## Docker Socket Notes (only if applicable)\n\n<standard warning>\n\n\n\n## Operational Notes\n\n<practical, experience-based notes>\n\n\n\n### Known Limitations\n\n<honest limitations>\n\n\n\n## Upstream Project\n\n- Website: <if known or inferred>\n- GitHub: <if known or inferred>\n\n\n\n## Final Notes\n\n<short, opinionated close>\n\n",
+        "text": "=Project name:\n{{ $json['project name'] }}\n\nProject repository or website:\n{{ $json['Link to repository or project page'] }}\n\nDocker Compose file:\n{{ $json['compose file'] }}\n\nDocker .env file:\n{{ $json['env file'] }}\n\nAdditional notes:\n{{ $json['notes'] }}\n\nInstructions:\n- Generate a README.md using the repository’s standard web UI service template\n- Infer purpose, configuration, and limitations from the Compose file\n- Decide whether a .env file is justified and explain briefly\n- Include upstream project links if the project is well-known\n- Keep the README concise and consistent with other projects\n\nREADME.md TEMPLATE:\n\n# <Project Name>\n\n<One-sentence description>\n\n\n\n## Purpose\n\n<Why this exists in this repository>\n\n\n\n## What This Stack Includes\n\n- <bullets inferred from compose>\n\n\n\n### Configuration Overview\n\n<Inline vs .env decision + rationale>\n\n<Reverse proxy one-liner if web UI>\n\n\n\n## Usage\n\n<docker compose up -d>\n<access instructions>\n\n\n\n## Docker Socket Notes (only if applicable)\n\n<standard warning>\n\n\n\n## Operational Notes\n\n<practical, experience-based notes>\n\n\n\n### Known Limitations\n\n<honest limitations>\n\n\n\n## Upstream Project\n\n- Website: <if known or inferred>\n- GitHub: <if known or inferred>\n\n\n\n## Final Notes\n\n<short, opinionated close>\n\n",
         "messages": {
           "messageValues": [
             {
@@ -72,7 +79,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        -384,
+        -368,
         -144
       ],
       "id": "0dff3e05-f4eb-4389-b64a-dedda8276cef",
@@ -88,7 +95,7 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        -32,
+        -16,
         -144
       ],
       "id": "ef4d91a8-7186-452b-9c8e-559c05a8e202",
@@ -97,17 +104,33 @@
     {
       "parameters": {
         "operation": "write",
-        "fileName": "=/home/node/data/github/docker-compose/{{$('On form submission').item.json['project name'].replace(/ /g, \"-\")}}_{{Date.now();}}-README.md",
+        "fileName": "=/home/node/data/github/docker-compose/{{$('On form submission').item.json['Project name'].replace(/ /g, \"-\")}}_{{Date.now();}}-README.md",
         "options": {}
       },
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        160,
+        208,
         -144
       ],
       "id": "df51e645-56dc-4f4f-8607-bc036e669cfa",
       "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "content": "## Github Compose Readme Generator\n\n1. Specify a valid credential for Google Gemini or the LLM of your choice\n2. Set an output destination for the generated README.md file output\n3. Navigate to the workflow's form URL, and you're ready to go!\n\n--\n\nGenerated markdown files will be named <project>_<timestamp>-README.md",
+        "height": 336,
+        "width": 464,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1232,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "ec901dd8-8ad1-48ef-a0e0-7487310f03ac",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -161,7 +184,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "2082f8bf-2235-4ac7-b17c-1d5fe2c65842",
+  "versionId": "ab8c94e3-1b29-4251-95ba-d6c2a98b1ac4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "089593b0375f52cffd2e682594e43cdd96459883230a04bef809490471c267bb"
@@ -169,3 +192,4 @@
   "id": "wq1UMRsgvSkqUXuw",
   "tags": []
 }
+
