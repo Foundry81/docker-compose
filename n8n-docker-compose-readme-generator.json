@@ -66,7 +66,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Project name:\n{{ $json['project name'] }}\n\nProject repository or website:\n{{ $json['Link to repository or project page'] }}\n\nDocker Compose file:\n{{ $json['compose file'] }}\n\nDocker .env file:\n{{ $json['env file'] }}\n\nAdditional notes:\n{{ $json['notes'] }}\n\nInstructions:\n- Generate a README.md using the repository’s standard web UI service template\n- Infer purpose, configuration, and limitations from the Compose file\n- Decide whether a .env file is justified and explain briefly\n- Include upstream project links if the project is well-known\n- Keep the README concise and consistent with other projects\n\nREADME.md TEMPLATE:\n\n# <Project Name>\n\n<One-sentence description>\n\n\n\n## Purpose\n\n<Why this exists in this repository>\n\n\n\n## What This Stack Includes\n\n- <bullets inferred from compose>\n\n\n\n### Configuration Overview\n\n<Inline vs .env decision + rationale>\n\n<Reverse proxy one-liner if web UI>\n\n\n\n## Usage\n\n<docker compose up -d>\n<access instructions>\n\n\n\n## Docker Socket Notes (only if applicable)\n\n<standard warning>\n\n\n\n## Operational Notes\n\n<practical, experience-based notes>\n\n\n\n### Known Limitations\n\n<honest limitations>\n\n\n\n## Upstream Project\n\n- Website: <if known or inferred>\n- GitHub: <if known or inferred>\n\n\n\n## Final Notes\n\n<short, opinionated close>\n\n",
+        "text": "=Project name:\n{{ $json['Project name'] }}\n\nProject repository or website:\n{{ $json['Link to repository or project page'] }}\n\nDocker Compose file:\n{{ $json['Paste compose file here'] }}\n\nDocker .env file:\n{{ $json['Example .env file (if necessary)'] }}\n\nAdditional notes:\n{{ $json['Additional notes'] }}\n\nInstructions:\n- Generate a README.md using the repository’s standard web UI service template\n- Infer purpose, configuration, and limitations from the Compose file\n- Decide whether a .env file is justified and explain briefly\n- Include upstream project links if the project is well-known\n- Keep the README concise and consistent with other projects\n\nREADME.md TEMPLATE:\n\n# <Project Name>\n\n<One-sentence description>\n\n\n\n## Purpose\n\n<Why this exists in this repository>\n\n\n\n## What This Stack Includes\n\n- <bullets inferred from compose>\n\n\n\n## Configuration Overview\n\n<Inline vs .env decision + rationale>\n\n<Reverse proxy one-liner if web UI>\n\n\n\n## Usage\n\n<docker compose up -d>\n<access instructions>\n\n\n\n## Docker Socket Notes (only if applicable)\n\n<standard warning>\n\n\n\n## Operational Notes\n\n<practical, experience-based notes>\n\n\n\n## Known Limitations\n\n<honest limitations>\n\n\n\n## Upstream Project\n\n- Website: <if known or inferred>\n- GitHub: <if known or inferred>\n\n\n\n## Final Notes\n\n<short, opinionated close>\n\n",
         "messages": {
           "messageValues": [
             {
@@ -184,7 +184,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ab8c94e3-1b29-4251-95ba-d6c2a98b1ac4",
+  "versionId": "dfa18535-3f0e-4947-8d44-7a0e1cfe66db",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "089593b0375f52cffd2e682594e43cdd96459883230a04bef809490471c267bb"
@@ -192,4 +192,3 @@
   "id": "wq1UMRsgvSkqUXuw",
   "tags": []
 }
-
