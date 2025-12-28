@@ -1,0 +1,5 @@
+services:
+  svg-renderer:
+    image: pluswerk/convert-svg-to-png
+    ports:
+      - "8999:3000"
