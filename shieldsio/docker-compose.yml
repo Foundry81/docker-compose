@@ -1,0 +1,13 @@
+services:
+  # Main Shields.io badge server
+  shields:
+    image: shieldsio/shields:next
+    container_name: shields-app
+    restart: always
+    environment:
+      - PORT=8080
+      - BASE_URL=https://place-url-here
+      # Recommended: Use GH_TOKEN to avoid GitHub API rate limits (60/hr unauthenticated)
+      # - GH_TOKEN=your_github_personal_access_token
+    ports:
+      - "7080:8080"
